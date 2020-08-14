@@ -22,7 +22,7 @@ insmod $mod_dir/snd-soc-seeed-voicecard.ko
 insmod $mod_dir/snd-soc-wm8960.ko
 lsmod | grep snd
 
-ln -s /etc/voicecard/asound_4mic.conf /etc/asound.conf
+ln -s /etc/voicecard/asound_2mic.conf /etc/asound.conf
 ln -s /etc/voicecard/ac108_asound.state /var/lib/alsa/asound.state
 alsactl restore
 amixer cset numid=3 1
