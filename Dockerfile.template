@@ -15,7 +15,7 @@ COPY ./seeed-voicecard/seeed-voicecard /usr/bin/
 COPY ./seeed-voicecard/seeed-voicecard.service /lib/systemd/system/
 WORKDIR /usr/src/app
 
-ENV VERSION '2.48.0+rev1.dev'
+ENV VERSION '2.51.1+rev1.dev'
 RUN ./build.sh %%BALENA_MACHINE_NAME%% $VERSION seeed-voicecard
 
 CMD ./run.sh
