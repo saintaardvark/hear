@@ -5,10 +5,10 @@ mod_dir="seeed-voicecard_${BALENA_DEVICE_TYPE}_${OS_VERSION}.dev"
 
 echo "OS Version is $OS_VERSION"
 
-modprobe i2c-dev
+modprobe -v i2c-dev
 
 echo "Loading snd-soc-simple-card first..."
-modprobe snd-soc-simple-card
+modprobe -v snd-soc-simple-card
 
 echo "Loading modules from $mod_dir"
 insmod $mod_dir/snd-soc-ac108.ko
