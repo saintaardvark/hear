@@ -16,8 +16,24 @@ insmod $mod_dir/snd-soc-wm8960.ko
 insmod $mod_dir/snd-soc-ac108.ko
 lsmod | grep snd
 
-ln -s /etc/voicecard/wm8960_asound.state /var/lib/alsa/asound.state
-alsactl restore
+echo 'ls -l /var/lib:'
+ls -l /var/lib
+echo 'ls -l /var/lib/alsa:'
+ls -l /var/lib/alsa
+
+ALSA_STATE_FILE=/var/lib/alsa/asound.state
+# I'm not sure what's happening here, but it *looks* like the state
+# file, if already present as a symlink, interferes somehow not just
+# with the symlinking (which is to be expected), but with the state
+# restore that comes next -- with the result that the soundcard does
+# not work unless we restart the container.
+if [ -f $ALSA_STATE_FILE ] ; then
+    echo "Existing alsa state file found, removing"
+    rm $ALSA_STATE_FILE
+fi
+ln -s /etc/voicecard/wm8960_asound.state $ALSA_STATE_FILE
+
+alsactl restore -d
 amixer cset numid=3 1
 
 while true; do
