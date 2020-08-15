@@ -16,7 +16,8 @@ insmod $mod_dir/snd-soc-seeed-voicecard.ko
 insmod $mod_dir/snd-soc-wm8960.ko
 lsmod | grep snd
 
-alsactl restore -f /etc/voicecard/sm8960_asound.state
+ln -s /etc/voicecard/wm8960_asound.state /var/lib/alsa/asound.state
+alsactl restore
 amixer cset numid=3 1
 
 while true; do
