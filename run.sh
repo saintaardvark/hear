@@ -11,9 +11,9 @@ echo "Loading snd-soc-simple-card first..."
 modprobe -v snd-soc-simple-card
 
 echo "Loading modules from $mod_dir"
-insmod $mod_dir/snd-soc-ac108.ko
 insmod $mod_dir/snd-soc-seeed-voicecard.ko
 insmod $mod_dir/snd-soc-wm8960.ko
+insmod $mod_dir/snd-soc-ac108.ko
 lsmod | grep snd
 
 ln -s /etc/voicecard/wm8960_asound.state /var/lib/alsa/asound.state
