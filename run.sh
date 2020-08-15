@@ -1,33 +1,22 @@
 #!/bin/bash
 
-# Moved to Dockerfile
-#set kernel modules
-# grep -q "^snd-soc-seeed-voicecard$" /etc/modules || \
-#   echo "snd-soc-seeed-voicecard" >> /etc/modules
-# grep -q "^snd-soc-ac108$" /etc/modules || \
-#   echo "snd-soc-ac108" >> /etc/modules
-# grep -q "^snd-soc-wm8960$" /etc/modules || \
-
-
 OS_VERSION=$(echo "$BALENA_HOST_OS_VERSION" | cut -d " " -f 2)
+mod_dir="seeed-voicecard_${BALENA_DEVICE_TYPE}_${OS_VERSION}.dev"
+
 echo "OS Version is $OS_VERSION"
 
 modprobe i2c-dev
 
-mod_dir="seeed-voicecard_${BALENA_DEVICE_TYPE}_${OS_VERSION}.dev"
 echo "Loading snd-soc-simple-card first..."
 modprobe snd-soc-simple-card
+
 echo "Loading modules from $mod_dir"
 insmod $mod_dir/snd-soc-ac108.ko
 insmod $mod_dir/snd-soc-seeed-voicecard.ko
 insmod $mod_dir/snd-soc-wm8960.ko
 lsmod | grep snd
 
-# Moved to Dockerfile
-# ln -s /etc/voicecard/asound_2mic.conf /etc/asound.conf
-# ln -s /etc/voicecard/wm8960_asound.state /var/lib/alsa/asound.state
-
-alsactl restore
+alsactl restore -f /etc/voicecard/sm8960_asound.state
 amixer cset numid=3 1
 
 while true; do
