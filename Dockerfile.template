@@ -23,6 +23,13 @@ COPY --from=builder /usr/src/app /usr/src/app
 COPY --from=builder /etc/voicecard /etc/voicecard
 COPY --from=builder /usr/bin/seeed-voicecard /usr/bin/
 COPY ./seeed-voicecard/seeed-voicecard.service /lib/systemd/system/
+
+RUN echo "snd-soc-seeed-voicecard" >> /etc/modules && \
+	echo "snd-soc-ac108" >> /etc/modules && \
+	echo "snd-soc-wm8960" >> /etc/modules && \
+	ln -s /etc/voicecard/asound_2mic.conf /etc/asound.conf && \
+	ln -s /etc/voicecard/wm8960_asound.state /var/lib/alsa/asound.state
+
 RUN install_packages alsa-utils libasound2-plugins openssh-client
 WORKDIR /usr/src/app
 CMD ./run.sh
