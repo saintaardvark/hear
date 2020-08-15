@@ -54,16 +54,6 @@ state.ALSA {
 			count 1
 		}
 	}
-	control.6 {
-		iface PCM
-		name 'IEC958 Playback PCM Stream'
-		value '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-		comment {
-			access 'read write inactive'
-			type IEC958
-			count 1
-		}
-	}
 }
 state.seeed4micvoicec {
 	control.1 {
@@ -125,20 +115,6 @@ state.seeed4micvoicec {
 	control.5 {
 		iface MIXER
 		name 'ADC1 PGA gain'
-		value 0
-		comment {
-			access 'read write'
-			type INTEGER
-			count 1
-			range '0 - 31'
-			dbmin 0
-			dbmax 3100
-			dbvalue.0 0
-		}
-	}
-	control.6 {
-		iface MIXER
-		name 'ADC2 PGA gain'
 		value 0
 		comment {
 			access 'read write'
