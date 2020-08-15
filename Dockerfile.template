@@ -23,6 +23,6 @@ COPY --from=builder /usr/src/app /usr/src/app
 COPY --from=builder /etc/voicecard /etc/voicecard
 COPY --from=builder /usr/bin/seeed-voicecard /usr/bin/
 COPY ./seeed-voicecard/seeed-voicecard.service /lib/systemd/system/
-RUN install_packages alsa-utils libasound2-plugins
+RUN install_packages alsa-utils libasound2-plugins openssh-client
 WORKDIR /usr/src/app
 CMD ./run.sh
